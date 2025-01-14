@@ -19,14 +19,9 @@ namespace photoservice.Pages
             _context = context;
         }
 
-        public IList<Reservation> Reservation { get;set; } = default!;
-
-        public async Task OnGetAsync()
+        public void OnGet()
         {
-            Reservation = await _context.Reservations
-                .Include(r => r.Client)
-                .Include(r => r.Service)
-                .Include(r => r.Status).ToListAsync();
+
         }
     }
 }

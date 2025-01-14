@@ -1,78 +1,9 @@
 ﻿@page
 @model photoservice.Pages.IndexModel
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].Deadline)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].FinishedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].OtherInfo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].ReservationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].Client)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].Service)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Reservation) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Deadline)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FinishedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OtherInfo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReservationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Client.IdUser)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Service.IdService)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status.IdStatus)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.IdRes">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.IdRes">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.IdRes">Delete</a>
-            </td>
-        </tr>
+@{
+	ViewData["Title"] = "Home page";
 }
-    </tbody>
-</table>
+
+<div class="text-center">
+	<h1 class="display-4">Welcome</h1>
+</div>
