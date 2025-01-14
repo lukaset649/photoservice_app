@@ -7,6 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<PhotoserviceContext>(options => options.UseSqlServer(connectionString));
 
+builder.Services.AddDbContext<PhotoserviceContext>(options =>
+    options.UseSqlServer(connectionString, sqlOptions =>
+        sqlOptions.EnableRetryOnFailure())
+);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
