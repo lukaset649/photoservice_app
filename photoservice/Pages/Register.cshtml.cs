@@ -57,6 +57,17 @@ namespace photoservice.Pages
             _context.Users.Add(newUser);
             await _context.SaveChangesAsync();
 
+            //Przypisanie domyœlnie u¿ytkownikowi roli 4-klient
+            var userRole = new UserRole
+            {
+                UserId = newUser.IdUser,
+                RoleId = 4
+            };
+
+            _context.UserRoles.Add(userRole);
+            await _context.SaveChangesAsync();
+
+
             return RedirectToPage("/Index"); // Mo¿na przekierowaæ na stronê powitaln¹
         }
     }
