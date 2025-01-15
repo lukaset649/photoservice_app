@@ -2,32 +2,32 @@
 @model photoservice.Pages.ReservationModel
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create" class="btn btn-primary">Utwórz nową rezerwację</a>
 </p>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ReservationView[0].Date)
+                Data wydarzenia
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReservationView[0].ServiceType)
+                Usługa
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReservationView[0].ReservationType)
+                Rodzaj zlecenia
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReservationView[0].Status)
+                Status
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReservationView[0].Price)
+                Cena
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReservationView[0].OtherInfo)
+                Inne informacje
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReservationView[0].ReservationTimestamp)
+                Data rezerwacji
             </th>
             <th></th>
         </tr>
@@ -58,7 +58,7 @@
                     @Html.DisplayFor(modelItem => item.ReservationTimestamp)
                 </td>
                 <td>
-                    <a asp-page="./Details" asp-route-id="@item.IdRes">Details</a> |
+                    <a class="btn btn-primary" asp-page="./Details" asp-route-id="@item.IdRes">Detale</a>
                 </td>
             </tr>
         }

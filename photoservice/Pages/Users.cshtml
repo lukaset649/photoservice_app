@@ -10,11 +10,11 @@
 <!-- Formularz wyszukiwania -->
 <form method="get">
     <div class="form-group">
-        <label for="searchQuery">Search by Name (First Name or Last Name):</label>
-        <input type="text" id="searchQuery" name="searchQuery" class="form-control" value="@Model.SearchQuery" placeholder="Enter name..." />
+        <label for="searchQuery">Wyszukaj po imieniu lub nazwisku (samo imię, lub samo nazwisko, lub oba):</label>
+        <input type="text" id="searchQuery" name="searchQuery" class="form-control" value="@Model.SearchQuery" placeholder="Wprowadź imię..." />
     </div>
 
-    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" class="btn btn-primary">Wyszukaj</button>
 </form>
 
 <br />
@@ -23,13 +23,13 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>User ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>ID</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
             <th>Email</th>
             <th>
                 <a href="?searchQuery=@Model.SearchQuery&sortByRole=@(!Model.SortByRole)" class="text-decoration-none">
-                    Role
+                    Rola
                     @if (Model.SortByRole)
                     {
                         <i class="bi bi-arrow-down-up"></i> <!-- Ikona do sortowania -->
@@ -55,7 +55,7 @@
         else
         {
             <tr>
-                <td colspan="5" class="text-center">No users found.</td>
+                <td colspan="5" class="text-center">Nie znaleziono użytkownika.</td>
             </tr>
         }
     </tbody>

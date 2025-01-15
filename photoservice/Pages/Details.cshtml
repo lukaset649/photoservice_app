@@ -3,16 +3,16 @@
 
 <h2>Reservation Details</h2>
 
-<!-- Displaying general reservation information -->
+<!-- Informacje ogólne o rezerwacji -->
 <table class="table">
     <thead>
         <tr>
-            <th>Service Type</th>
-            <th>Reservation Type</th>
+            <th>Usługa</th>
+            <th>Rodzaj zlecenia</th>
             <th>Status</th>
-            <th>Price</th>
-            <th>Other Info</th>
-            <th>Reservation Timestamp</th>
+            <th>Cena</th>
+            <th>Inne informacje</th>
+            <th>Data rezerwacji</th>
         </tr>
     </thead>
     <tbody>
@@ -27,22 +27,22 @@
     </tbody>
 </table>
 
-<!-- Display specific detail table based on TypeId -->
+<!-- Detale rezerwacji -->
 @if (Model.ReservationDetails.Any())
 {
     var firstDetail = Model.ReservationDetails.First();
 
-    @if (firstDetail.TypeId == 1) // Assuming TypeId 1 corresponds to wedding
+    @if (firstDetail.TypeId == 1) // wedding
     {
         <h3>Wedding Details</h3>
         <table class="table">
             <thead>
                 <tr>
-                    <th>Groom Address</th>
-                    <th>Bride Address</th>
-                    <th>Ceremony Address</th>
-                    <th>Ceremony Time</th>
-                    <th>Wedding Hall Address</th>
+                    <th>Adres Pana Młodego</th>
+                    <th>Adres Pani Młodej</th>
+                    <th>Adres miejsca ceremoni</th>
+                    <th>Godzina rozpoczęcia ceremoni</th>
+                    <th>Adres sali weselnej</th>
                 </tr>
             </thead>
             <tbody>
@@ -56,15 +56,15 @@
             </tbody>
         </table>
     }
-    else if (firstDetail.TypeId == 2) // Assuming TypeId 2 corresponds to photoshoot
+    else if (firstDetail.TypeId == 2) // photoshoot
     {
         <h3>Photoshoot Details</h3>
         <table class="table">
             <thead>
                 <tr>
-                    <th>Location</th>
-                    <th>Transport</th>
-                    <th>Number of Participants</th>
+                    <th>Miejsce</th>
+                    <th>Sposób transportu</th>
+                    <th>Ilość uczestników</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,15 +76,15 @@
             </tbody>
         </table>
     }
-    else if (firstDetail.TypeId == 3) // Assuming TypeId 3 corresponds to baptism
+    else if (firstDetail.TypeId == 3) // baptism
     {
         <h3>Baptism Details</h3>
         <table class="table">
             <thead>
                 <tr>
-                    <th>Church Address</th>
-                    <th>Home Address</th>
-                    <th>Ceremony Time</th>
+                    <th>Adres kościoła</th>
+                    <th>Adres domu</th>
+                    <th>Godzina rozpoczęcia ceremoni</th>
                 </tr>
             </thead>
             <tbody>
@@ -96,14 +96,14 @@
             </tbody>
         </table>
     }
-    else if (firstDetail.TypeId == 4) // Assuming TypeId 4 corresponds to other
+    else if (firstDetail.TypeId == 4) // other
     {
         <h3>Other Details</h3>
         <table class="table">
             <thead>
                 <tr>
-                    <th>Location</th>
-                    <th>Description</th>
+                    <th>Miejsce</th>
+                    <th>Opis</th>
                 </tr>
             </thead>
             <tbody>
