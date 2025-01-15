@@ -5,6 +5,7 @@ namespace photoservice.Pages
     public class DashboardModel : PageModel
     {
         public string UserName { get; set; }
+        public string UserRole { get; set; }
 
         public void OnGet()
         {
@@ -15,6 +16,7 @@ namespace photoservice.Pages
             }
             // Pobierz dane u¿ytkownika z sesji
             UserName = HttpContext.Session.GetString("UserFName") ?? "Goœæ";
+            UserRole = HttpContext.Session.GetString("UserRole") ?? "nieznana";
         }
     }
 }

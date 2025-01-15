@@ -1,6 +1,28 @@
 ﻿@{
-    //Layout w zależności od tego czy użytkownik jest zalogowany
-    Layout = Context.Session.GetString("UserId") == null
-        ? "~/Pages/Shared/_Layout.cshtml"
-        : "~/Pages/Shared/ClientLayout.cshtml";
+    var userId = Context.Session.GetString("UserId");
+    var userRole = Context.Session.GetString("UserRole");
+
+    if (userId == null)
+    {
+        Layout = "~/Pages/Shared/_Layout.cshtml";    //Jeśli użytkownik jest niezalogowany, to wyświetl domyślny layout
+    }
+    else{
+        switch(userRole)    //wyświetla layout strony w zależności od roli
+        {
+            case "administrator":
+                Layout = "~/Pages/Shared/AdminLayout.cshtml";
+                break;
+            case "klient":
+                Layout = "~/Pages/Shared/ClientLayout.cshtml";
+                break;
+            case "fotograf":    //pracownicy mają ten sam layout
+            case "kamerzysta":
+                Layout = "~/Pages/Shared/EmplyeeLayout.cshtml";
+                break;
+            default:
+                Layout = "~/Pages/Shared/_Layout.cshtml";   //mie łączę tego z pierwszym warunkiem, bo nie mam pewności czy dla niezalogowanego zawsze jest null w UserRole
+                break;
+                
+        }
+    }
 }
