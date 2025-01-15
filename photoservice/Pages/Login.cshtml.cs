@@ -50,6 +50,7 @@ namespace photoservice.Pages
             HttpContext.Session.SetString("UserId", user.IdUser.ToString());
             HttpContext.Session.SetString("UserFName", user.FName);
             HttpContext.Session.SetString("UserLName", user.LName);
+            HttpContext.Session.SetString("UserRole", user.RoleName);
 
             // Przekierowanie do spersonalizowanej strony
             return RedirectToPage("/Dashboard");

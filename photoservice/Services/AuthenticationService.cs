@@ -17,19 +17,26 @@ namespace photoservice.Services
         {
             _context = context;
         }
-        public async Task<User> LoginAsync(LoginRequest loginRequest)
+
+        public async Task<ActiveUsersWithRole> LoginAsync(LoginRequest loginRequest) //zamiast tabeli Users użyty zostaje widok ActiveUsersWithRole, żeby pobrać od razu rolę użytkownika
         {
             // Znalezienie użytkownika po mailu
-            var user = await _context.Users.Where(u => u.Email == loginRequest.Email && u.IsDeleted == false).FirstOrDefaultAsync();    //dopasowuje po mailu i sprawdza czy użytkownik nie jest kontem usuniętym
+            var user = await _context.ActiveUsersWithRoles
+                .Where(u => u.Email == loginRequest.Email)
+                .FirstOrDefaultAsync();
 
-            if (user == null)   
+            if (user == null)
                 return null;
 
-            // Weryfikacja hasła
-            if (!VerifyPassword(loginRequest.Password, user.PasswordHash))
+            //dopasowuje po mailu i sprawdza czy użytkownik nie jest kontem usuniętym
+            var storedUser = await _context.Users
+                .Where(u => u.Email == loginRequest.Email && u.IsDeleted == false)
+                .FirstOrDefaultAsync();
+
+            //Weryfikuje hasło
+            if (storedUser == null || !VerifyPassword(loginRequest.Password, storedUser.PasswordHash))
                 return null;
 
-            //Jeśli użytkownik nie istnieje, albo hasło nie pasike, to zwraca null.
             return user;
         }
 
