@@ -22,6 +22,9 @@ public partial class EmployeeReservationsView
     [Unicode(false)]
     public string ServiceType { get; set; } = null!;
 
+    [Column("date", TypeName = "datetime")]
+    public DateTime? Date { get; set; }
+
     [Column("status")]
     [StringLength(50)]
     [Unicode(false)]
@@ -35,8 +38,8 @@ public partial class EmployeeReservationsView
     [Unicode(false)]
     public string? OtherInfo { get; set; }
 
-    [Column("reservation_date", TypeName = "datetime")]
-    public DateTime? ReservationDate { get; set; }
+    [Column("reservation_timestamp", TypeName = "datetime")]
+    public DateTime? ReservationTimestamp { get; set; }
 
     [Column("employee_name")]
     [StringLength(101)]

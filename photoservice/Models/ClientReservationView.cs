@@ -7,15 +7,10 @@ using Microsoft.EntityFrameworkCore;
 namespace photoservice.Models;
 
 [Keyless]
-public partial class ReservationView
+public partial class ClientReservationView
 {
     [Column("id_res")]
     public int IdRes { get; set; }
-
-    [Column("client_name")]
-    [StringLength(101)]
-    [Unicode(false)]
-    public string ClientName { get; set; } = null!;
 
     [Column("service_type")]
     [StringLength(50)]

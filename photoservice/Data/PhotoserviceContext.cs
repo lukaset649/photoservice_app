@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using photoservice.Models;
 
 namespace photoservice.Data;
 
 public partial class PhotoserviceContext : DbContext
 {
-    private readonly IConfiguration _configuration;
-
-    public PhotoserviceContext(IConfiguration configuration)
+    public PhotoserviceContext()
     {
-        _configuration = configuration;
     }
 
-    public PhotoserviceContext(DbContextOptions<PhotoserviceContext> options, IConfiguration configuration)
-           : base(options)
+    public PhotoserviceContext(DbContextOptions<PhotoserviceContext> options)
+        : base(options)
     {
-        _configuration = configuration;
     }
 
     public virtual DbSet<ActiveUsersWithRole> ActiveUsersWithRoles { get; set; }
+
+    public virtual DbSet<ClientReservationView> ClientReservationViews { get; set; }
 
     public virtual DbSet<DetailsBaptism> DetailsBaptisms { get; set; }
 
@@ -71,19 +67,19 @@ public partial class PhotoserviceContext : DbContext
     public virtual DbSet<UserRole> UserRoles { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlServer(connectionString);
-        }
-    }
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-TDJFIKP;\nInitial Catalog=photoservice;User ID=lukaset;Password=Kwakwa5!;\nConnect Timeout=30;Encrypt=False;Trust Server Certificate=False;\nApplication Intent=ReadWrite;Multi Subnet Failover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ActiveUsersWithRole>(entity =>
         {
             entity.ToView("ActiveUsersWithRoles");
+        });
+
+        modelBuilder.Entity<ClientReservationView>(entity =>
+        {
+            entity.ToView("ClientReservationView");
         });
 
         modelBuilder.Entity<DetailsBaptism>(entity =>

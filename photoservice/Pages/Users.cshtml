@@ -1,0 +1,41 @@
+﻿@page
+@model photoservice.Pages.UsersModel
+
+@{
+    ViewData["Title"] = "Active Users with Roles";
+}
+
+<h1>Active Users with Roles</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.ActiveUsers != null && Model.ActiveUsers.Count > 0)
+        {
+            foreach (var user in Model.ActiveUsers)
+            {
+                <tr>
+                    <td>@user.IdUser</td>
+                    <td>@user.FName</td>
+                    <td>@user.LName</td>
+                    <td>@user.Email</td>
+                    <td>@user.RoleName</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No users found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
