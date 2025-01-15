@@ -7,6 +7,17 @@
 
 <h1>Active Users with Roles</h1>
 
+<form method="get">
+    <div class="form-group">
+        <label for="searchQuery">Search by Name (First Name or Last Name):</label>
+        <input type="text" id="searchQuery" name="searchQuery" class="form-control" value="@Model.SearchQuery" placeholder="Enter name..." />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<br />
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -14,7 +25,9 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
-            <th>Role</th>
+            <th>
+                <a href="?searchQuery=@Model.SearchQuery&sortByRole=true" class="text-decoration-none">Role</a>
+            </th>
         </tr>
     </thead>
     <tbody>
