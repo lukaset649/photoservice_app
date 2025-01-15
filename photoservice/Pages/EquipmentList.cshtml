@@ -11,6 +11,11 @@
     <button type="submit" class="btn btn-danger mb-3">Usuń wszystkie sprzęty</button>
 </form>
 
+<!-- Przycisk do uzupełniania kolumny condition na "sprawny" -->
+<form method="post" asp-page-handler="UpdateCondition" onsubmit="return confirm('Czy na pewno chcesz uzupełnić kolumnę o predefiniowaną wartość?');">
+    <button type="submit" class="btn btn-warning mb-3">Ustaw kolumnę Stan na "Sprawny"</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>

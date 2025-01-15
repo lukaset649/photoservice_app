@@ -31,12 +31,12 @@ namespace photoservice.Pages
             return Page();
         }
 
-        // Funkcja wywo³ywana przy ¿¹daniu POST do usuniêcia sprzêtu
+        //wywo³ywana przy ¿¹daniu POST do usuniêcia sprzêtu
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
             var equipment = await _context.Equipment
-                .Include(e => e.EquipmentCompabilityEqs)  // Wczytanie powi¹zanych rekordów z equipment_compability
-                .Include(e => e.EquipmentCompabilityCompatibleWiths)  // Wczytanie powi¹zanych rekordów z equipment_compability
+                .Include(e => e.EquipmentCompabilityEqs)  // Wczytanie powi¹zanych rekordów
+                .Include(e => e.EquipmentCompabilityCompatibleWiths)
                 .FirstOrDefaultAsync(e => e.IdEq == id);
 
             if (equipment == null)
@@ -52,17 +52,17 @@ namespace photoservice.Pages
             _context.Equipment.Remove(equipment);
             await _context.SaveChangesAsync();
 
-            // Po usuniêciu, przekierowanie do listy sprzêtu
+            // Po usuniêciu przekierowanie do listy sprzêtu
             return RedirectToPage();
         }
 
         // Funkcja do usuwania wszystkich sprzêtów
         public async Task<IActionResult> OnPostDeleteAllAsync()
         {
-            // Pobranie wszystkich sprzêtów wraz z powi¹zanymi rekordami
+            // Pobranie wszystkich sprzêtów i powi¹zane rekordy
             var allEquipments = await _context.Equipment
-                .Include(e => e.EquipmentCompabilityEqs)  // Wczytanie powi¹zanych rekordów
-                .Include(e => e.EquipmentCompabilityCompatibleWiths)  // Wczytanie powi¹zanych rekordów
+                .Include(e => e.EquipmentCompabilityEqs)
+                .Include(e => e.EquipmentCompabilityCompatibleWiths)
                 .ToListAsync();
 
             // Usuwanie powi¹zanych rekordów dla wszystkich sprzêtów
@@ -76,7 +76,28 @@ namespace photoservice.Pages
             _context.Equipment.RemoveRange(allEquipments);
             await _context.SaveChangesAsync();
 
-            // Po usuniêciu, przekierowanie do listy sprzêtu
+            // Po usuniêciu, przekierowanie z powrotem do listy sprzêtu
+            return RedirectToPage();
+        }
+
+        public async Task<IActionResult> OnPostUpdateConditionAsync()
+        {
+            // Predefiniowana wartoœæ
+            string newConditionValue = "Sprawny";
+
+            // pobierz wszystkie rekordy
+            var equipments = await _context.Equipment.ToListAsync();
+
+            // Zaktualizowanie kolumny 'condition' w ka¿dym rekordzie
+            foreach (var equipment in equipments)
+            {
+                equipment.Condition = newConditionValue;
+            }
+
+            // Zapisanie zmian w bazie
+            await _context.SaveChangesAsync();
+
+            //przekierowanie do strony, aby zobaczyæ zmiany
             return RedirectToPage();
         }
     }
