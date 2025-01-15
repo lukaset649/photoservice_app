@@ -23,7 +23,7 @@ namespace photoservice.Pages
 
         public void OnGet()
         {
-            // Jeœli chcesz, aby strona logowania by³a pusta pocz¹tkowo, to OnGet bêdzie mog³a byæ pusta.
+            
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -46,8 +46,13 @@ namespace photoservice.Pages
                 return Page();
             }
 
-            // W przypadku udanego logowania przekieruj do strony g³ównej lub dashboardu
-            return RedirectToPage("/Index"); // Lub inna strona, na któr¹ ma zostaæ przekierowany u¿ytkownik po udanym logowaniu.
+            // Przechowywanie danych u¿ytkownika w sesji
+            HttpContext.Session.SetString("UserId", user.IdUser.ToString());
+            HttpContext.Session.SetString("UserFName", user.FName);
+            HttpContext.Session.SetString("UserLName", user.LName);
+
+            // Przekierowanie do spersonalizowanej strony
+            return RedirectToPage("/Dashboard");
         }
     }
 }

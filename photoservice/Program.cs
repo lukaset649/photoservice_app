@@ -14,13 +14,20 @@ builder.Services.AddDbContext<PhotoserviceContext>(options =>
 );
 
 // Rejestracja serwisów
-builder.Services.AddScoped<AuthenticationService>(); // Rejestracja serwisu autentykacji
-builder.Services.AddScoped<JwtService>(); // Rejestracja serwisu Jwt, je¿eli go u¿ywasz
+builder.Services.AddScoped<AuthenticationService>();
+builder.Services.AddScoped<JwtService>();
 
-// Dodaj inne niezbêdne us³ugi, np. kontrolery, jeœli ich u¿ywasz
-builder.Services.AddControllers(); // Rejestracja kontrolerów
+// Dodanie obs³ugi sesji
+builder.Services.AddDistributedMemoryCache(); // Wymagane do u¿ycia sesji
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = ".Photoservice.Session"; // Nazwa ciasteczka sesji
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Czas wygaœniêcia sesji
+    options.Cookie.HttpOnly = true; // Zabezpieczenie przed dostêpem JavaScript
+    options.Cookie.IsEssential = true; // Ciasteczko wymagane do dzia³ania aplikacji
+});
 
-// Rejestracja Razor Pages, jeœli s¹ potrzebne
+builder.Services.AddControllers();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -35,12 +42,15 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
+// U¿ycie sesji w pipeline
+app.UseSession();
+
 app.UseAuthorization();
 
-// Mapowanie Razor Pages
 app.MapRazorPages();
-// Mapowanie kontrolerów (API)
 app.MapControllers();
 
 app.Run();
