@@ -1,0 +1,35 @@
+﻿@page
+@model photoservice.Pages.EquipmentListModel
+@{
+    ViewData["Title"] = "Lista sprzętu";
+}
+
+<h2>Lista sprzętu</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID Sprzętu</th>
+            <th>Nazwa</th>
+            <th>Typ</th>
+            <th>Producent</th>
+            <th>Opis</th>
+            <th>Stan</th>
+            <th>Dostępność</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var equipment in Model.Equipments)
+        {
+            <tr>
+                <td>@equipment.IdEq</td>
+                <td>@equipment.Name</td>
+                <td>@equipment.EqType.Name</td>
+                <td>@equipment.EqManufacturer.Name</td>
+                <td>@equipment.Description</td>
+                <td>@equipment.Condition</td>
+                <td>@equipment.Working</td>
+            </tr>
+        }
+    </tbody>
+</table>
