@@ -1,0 +1,45 @@
+﻿@page
+@model photoservice.Pages.ProfilModel
+@{
+    ViewData["Title"] = "Profil użytkownika";
+}
+
+<h2>Profil użytkownika</h2>
+
+@if (Model.User != null)
+{
+    <form method="post" class="form">
+        <div class="form-group">
+            <label for="FName">Imię</label>
+            <input type="text" id="FName" class="form-control" value="@Model.User.FName" disabled />
+        </div>
+
+        <div class="form-group">
+            <label for="LName">Nazwisko</label>
+            <input type="text" id="LName" class="form-control" value="@Model.User.LName" disabled />
+        </div>
+
+        <div class="form-group">
+            <label for="PhoneNumber">Numer telefonu</label>
+            <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" value="@Model.User.PhoneNumber" required />
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Zaktualizuj numer telefonu</button>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger">@Model.ErrorMessage</div>
+        }
+
+        @if (Model.SuccessMessage != null)
+        {
+            <div class="alert alert-success">@Model.SuccessMessage</div>
+        }
+    </form>
+}
+else
+{
+    <div class="alert alert-warning">Nie znaleziono danych użytkownika.</div>
+}
