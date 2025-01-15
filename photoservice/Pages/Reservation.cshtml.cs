@@ -19,14 +19,13 @@ namespace photoservice.Pages
             _context = context;
         }
 
-        public IList<Reservation> Reservation { get; set; } = default!;
+        // Zmiana na listê ClientReservationView
+        public IList<ClientReservationView> ReservationView { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Reservation = await _context.Reservations
-                .Include(r => r.Client)
-                .Include(r => r.Service)
-                .Include(r => r.Status).ToListAsync();
+            // Pobieranie danych z widoku ClientReservationView
+            ReservationView = await _context.ClientReservationViews.ToListAsync();
         }
     }
 }

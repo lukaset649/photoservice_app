@@ -17,6 +17,11 @@ public partial class ClientReservationView
     [Unicode(false)]
     public string ServiceType { get; set; } = null!;
 
+    [Column("reservation_type")]
+    [StringLength(50)]
+    [Unicode(false)]
+    public string ReservationType { get; set; } = null!;
+
     [Column("date", TypeName = "datetime")]
     public DateTime? Date { get; set; }
 

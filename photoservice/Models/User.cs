@@ -7,8 +7,8 @@ using Microsoft.EntityFrameworkCore;
 namespace photoservice.Models;
 
 [Table("users")]
-[Index("PhoneNumber", Name = "UQ__users__A1936A6B62E06492", IsUnique = true)]
-[Index("Email", Name = "UQ__users__AB6E61643964F720", IsUnique = true)]
+[Index("PhoneNumber", Name = "UQ__users__A1936A6B728D23BA", IsUnique = true)]
+[Index("Email", Name = "UQ__users__AB6E6164E2AC179F", IsUnique = true)]
 public partial class User
 {
     [Key]

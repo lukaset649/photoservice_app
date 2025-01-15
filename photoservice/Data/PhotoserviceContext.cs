@@ -84,22 +84,22 @@ public partial class PhotoserviceContext : DbContext
 
         modelBuilder.Entity<DetailsBaptism>(entity =>
         {
-            entity.HasKey(e => e.IdDetBap).HasName("PK__details___30B886D24C52BFFB");
+            entity.HasKey(e => e.IdDetBap).HasName("PK__details___30B886D29A4D9F04");
         });
 
         modelBuilder.Entity<DetailsOther>(entity =>
         {
-            entity.HasKey(e => e.IdDetOth).HasName("PK__details___3FC1B3BFC7ECE7AF");
+            entity.HasKey(e => e.IdDetOth).HasName("PK__details___3FC1B3BF7E741AC8");
         });
 
         modelBuilder.Entity<DetailsPhotoshoot>(entity =>
         {
-            entity.HasKey(e => e.IdDetPs).HasName("PK__details___E90F3DEC3277CA3D");
+            entity.HasKey(e => e.IdDetPs).HasName("PK__details___E90F3DEC18B12D04");
         });
 
         modelBuilder.Entity<DetailsWedding>(entity =>
         {
-            entity.HasKey(e => e.IdDetWed).HasName("PK__details___3DC18B8372A5F2EB");
+            entity.HasKey(e => e.IdDetWed).HasName("PK__details___3DC18B83013B47DB");
         });
 
         modelBuilder.Entity<EmployeeReservationsView>(entity =>
@@ -109,7 +109,7 @@ public partial class PhotoserviceContext : DbContext
 
         modelBuilder.Entity<Equipment>(entity =>
         {
-            entity.HasKey(e => e.IdEq).HasName("PK__equipmen__00B7CEB769FDCDDB");
+            entity.HasKey(e => e.IdEq).HasName("PK__equipmen__00B7CEB7C4283A34");
 
             entity.ToTable("equipment", tb => tb.HasTrigger("LogEquipmentConditionChange"));
 
@@ -126,7 +126,7 @@ public partial class PhotoserviceContext : DbContext
 
         modelBuilder.Entity<EquipmentCompability>(entity =>
         {
-            entity.HasKey(e => e.IdCompability).HasName("PK__equipmen__2D7250C1DD452A99");
+            entity.HasKey(e => e.IdCompability).HasName("PK__equipmen__2D7250C1EC609246");
 
             entity.HasOne(d => d.CompatibleWith).WithMany(p => p.EquipmentCompabilityCompatibleWiths)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -139,22 +139,22 @@ public partial class PhotoserviceContext : DbContext
 
         modelBuilder.Entity<EquipmentConditionLog>(entity =>
         {
-            entity.HasKey(e => e.LogId).HasName("PK__equipmen__9E2397E0AF719301");
+            entity.HasKey(e => e.LogId).HasName("PK__equipmen__9E2397E0AA6F5BD8");
         });
 
         modelBuilder.Entity<EquipmentManufacturer>(entity =>
         {
-            entity.HasKey(e => e.IdEqMan).HasName("PK__equipmen__68D204E80E29EA6B");
+            entity.HasKey(e => e.IdEqMan).HasName("PK__equipmen__68D204E818293CC1");
         });
 
         modelBuilder.Entity<EquipmentType>(entity =>
         {
-            entity.HasKey(e => e.IdEqType).HasName("PK__equipmen__90878FF3A8328C5F");
+            entity.HasKey(e => e.IdEqType).HasName("PK__equipmen__90878FF34CB7E447");
         });
 
         modelBuilder.Entity<Message>(entity =>
         {
-            entity.HasKey(e => e.IdMess).HasName("PK__messages__68A1E1B79CFF28B9");
+            entity.HasKey(e => e.IdMess).HasName("PK__messages__68A1E1B7D063BF38");
 
             entity.Property(e => e.MessDate).HasDefaultValueSql("(getdate())");
 
@@ -169,7 +169,7 @@ public partial class PhotoserviceContext : DbContext
 
         modelBuilder.Entity<Reservation>(entity =>
         {
-            entity.HasKey(e => e.IdRes).HasName("PK__reservat__6ABE6F787E5F6FA4");
+            entity.HasKey(e => e.IdRes).HasName("PK__reservat__6ABE6F78054AF7AC");
 
             entity.Property(e => e.ReservationDate).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.StatusId).HasDefaultValue(1);
@@ -189,7 +189,7 @@ public partial class PhotoserviceContext : DbContext
 
         modelBuilder.Entity<ReservationCancellation>(entity =>
         {
-            entity.HasKey(e => e.IdCancell).HasName("PK__reservat__AD54E76A4522B051");
+            entity.HasKey(e => e.IdCancell).HasName("PK__reservat__AD54E76AD06E7137");
 
             entity.Property(e => e.CancellDate).HasDefaultValueSql("(getdate())");
 
@@ -204,7 +204,7 @@ public partial class PhotoserviceContext : DbContext
 
         modelBuilder.Entity<ReservationDetail>(entity =>
         {
-            entity.HasKey(e => e.IdResDet).HasName("PK__reservat__5CC3245C8EF51E8B");
+            entity.HasKey(e => e.IdResDet).HasName("PK__reservat__5CC3245CBB71C289");
 
             entity.HasOne(d => d.Reservation).WithMany(p => p.ReservationDetails)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -217,7 +217,7 @@ public partial class PhotoserviceContext : DbContext
 
         modelBuilder.Entity<ReservationEmployee>(entity =>
         {
-            entity.HasKey(e => e.IdResEmp).HasName("PK__reservat__5C7F75F1BD96BEF3");
+            entity.HasKey(e => e.IdResEmp).HasName("PK__reservat__5C7F75F1C7DEFFE5");
 
             entity.HasOne(d => d.Employee).WithMany(p => p.ReservationEmployees)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -230,7 +230,7 @@ public partial class PhotoserviceContext : DbContext
 
         modelBuilder.Entity<ReservationEquipment>(entity =>
         {
-            entity.HasKey(e => e.IdResEq).HasName("PK__reservat__1942D268483C10A9");
+            entity.HasKey(e => e.IdResEq).HasName("PK__reservat__1942D2688159B70A");
 
             entity.HasOne(d => d.Eq).WithMany(p => p.ReservationEquipments)
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -243,7 +243,7 @@ public partial class PhotoserviceContext : DbContext
 
         modelBuilder.Entity<ReservationType>(entity =>
         {
-            entity.HasKey(e => e.IdResType).HasName("PK__reservat__FF0D841BAB47F154");
+            entity.HasKey(e => e.IdResType).HasName("PK__reservat__FF0D841B82ED3B99");
         });
 
         modelBuilder.Entity<ReservationView>(entity =>
@@ -253,22 +253,22 @@ public partial class PhotoserviceContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.IdRole).HasName("PK__roles__3D48441DC0B498CA");
+            entity.HasKey(e => e.IdRole).HasName("PK__roles__3D48441DF049A204");
         });
 
         modelBuilder.Entity<ServiceType>(entity =>
         {
-            entity.HasKey(e => e.IdService).HasName("PK__service___D06FB5A8A81C6216");
+            entity.HasKey(e => e.IdService).HasName("PK__service___D06FB5A872A99597");
         });
 
         modelBuilder.Entity<Status>(entity =>
         {
-            entity.HasKey(e => e.IdStatus).HasName("PK__status__5D2DC6E8F31257AD");
+            entity.HasKey(e => e.IdStatus).HasName("PK__status__5D2DC6E80003EBAC");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.IdUser).HasName("PK__users__D2D1463775921919");
+            entity.HasKey(e => e.IdUser).HasName("PK__users__D2D14637036D807D");
 
             entity.ToTable("users", tb => tb.HasTrigger("PreventUserDeletion"));
 
@@ -278,7 +278,7 @@ public partial class PhotoserviceContext : DbContext
 
         modelBuilder.Entity<UserRole>(entity =>
         {
-            entity.HasKey(e => e.IdUr).HasName("PK__user_rol__014848A48D79EEF6");
+            entity.HasKey(e => e.IdUr).HasName("PK__user_rol__014848A4DC90C707");
 
             entity.HasOne(d => d.Role).WithMany(p => p.UserRoles).HasConstraintName("FK__user_role__role___44FF419A");
 

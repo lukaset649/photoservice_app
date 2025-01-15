@@ -1,67 +1,117 @@
-﻿@page
+﻿@page "{id:int}"
 @model photoservice.Pages.DetailsModel
 
-<div>
-    <h4>Reservation</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reservation.Date)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reservation.Date)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reservation.Deadline)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reservation.Deadline)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reservation.FinishedDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reservation.FinishedDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reservation.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reservation.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reservation.OtherInfo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reservation.OtherInfo)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reservation.ReservationDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reservation.ReservationDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reservation.Client)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reservation.Client.IdUser)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reservation.Service)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reservation.Service.IdService)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reservation.Status)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Reservation.Status.IdStatus)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Reservation.IdRes">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
-</div>
+<h2>Reservation Details</h2>
+
+<!-- Displaying general reservation information -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Service Type</th>
+            <th>Reservation Type</th>
+            <th>Status</th>
+            <th>Price</th>
+            <th>Other Info</th>
+            <th>Reservation Timestamp</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.ReservationView.ServiceType</td>
+            <td>@Model.ReservationView.ReservationType</td>
+            <td>@Model.ReservationView.Status</td>
+            <td>@Model.ReservationView.Price</td>
+            <td>@Model.ReservationView.OtherInfo</td>
+            <td>@Model.ReservationView.ReservationTimestamp</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Display specific detail table based on TypeId -->
+@if (Model.ReservationDetails.Any())
+{
+    var firstDetail = Model.ReservationDetails.First();
+
+    @if (firstDetail.TypeId == 1) // Assuming TypeId 1 corresponds to wedding
+    {
+        <h3>Wedding Details</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Groom Address</th>
+                    <th>Bride Address</th>
+                    <th>Ceremony Address</th>
+                    <th>Ceremony Time</th>
+                    <th>Wedding Hall Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.WeddingDetails.GroomAddress</td>
+                    <td>@Model.WeddingDetails.BrideAddress</td>
+                    <td>@Model.WeddingDetails.CeremonyAddress</td>
+                    <td>@Model.WeddingDetails.CeremonyTime</td>
+                    <td>@Model.WeddingDetails.WeddingHallAddress</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else if (firstDetail.TypeId == 2) // Assuming TypeId 2 corresponds to photoshoot
+    {
+        <h3>Photoshoot Details</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Location</th>
+                    <th>Transport</th>
+                    <th>Number of Participants</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.PhotoshootDetails.Localisation</td>
+                    <td>@Model.PhotoshootDetails.Transport</td>
+                    <td>@Model.PhotoshootDetails.NumOfParticipants</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else if (firstDetail.TypeId == 3) // Assuming TypeId 3 corresponds to baptism
+    {
+        <h3>Baptism Details</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Church Address</th>
+                    <th>Home Address</th>
+                    <th>Ceremony Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.BaptismDetails.ChurchAddress</td>
+                    <td>@Model.BaptismDetails.HomeAddress</td>
+                    <td>@Model.BaptismDetails.CeremonyTime</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+    else if (firstDetail.TypeId == 4) // Assuming TypeId 4 corresponds to other
+    {
+        <h3>Other Details</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Location</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.OtherDetails.Localisation</td>
+                    <td>@Model.OtherDetails.Description</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+}

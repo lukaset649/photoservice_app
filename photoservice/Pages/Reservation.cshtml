@@ -1,53 +1,52 @@
 ﻿@page
 @model photoservice.Pages.ReservationModel
+
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].Date)
+                @Html.DisplayNameFor(model => model.ReservationView[0].Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].Deadline)
+                @Html.DisplayNameFor(model => model.ReservationView[0].ServiceType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].FinishedDate)
+                @Html.DisplayNameFor(model => model.ReservationView[0].ReservationType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].Price)
+                @Html.DisplayNameFor(model => model.ReservationView[0].Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].OtherInfo)
+                @Html.DisplayNameFor(model => model.ReservationView[0].Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].ReservationDate)
+                @Html.DisplayNameFor(model => model.ReservationView[0].OtherInfo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].Client)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].Service)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation[0].Status)
+                @Html.DisplayNameFor(model => model.ReservationView[0].ReservationTimestamp)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Reservation)
+        @foreach (var item in Model.ReservationView)
         {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Deadline)
+                    @Html.DisplayFor(modelItem => item.ServiceType)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FinishedDate)
+                    @Html.DisplayFor(modelItem => item.ReservationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
@@ -56,16 +55,7 @@
                     @Html.DisplayFor(modelItem => item.OtherInfo)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ReservationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Client.IdUser)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Service.IdService)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status.IdStatus)
+                    @Html.DisplayFor(modelItem => item.ReservationTimestamp)
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.IdRes">Edit</a> |
