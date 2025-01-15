@@ -13,6 +13,9 @@ namespace photoservice.Pages
     {
         private readonly photoservice.Data.PhotoserviceContext _context;
 
+        //pobieranie roli u¿ytkownika z sesji
+        private string UserRole => HttpContext.Session.GetString("UserRole");
+
         public UsersModel(photoservice.Data.PhotoserviceContext context)
         {
             _context = context;
@@ -20,12 +23,18 @@ namespace photoservice.Pages
 
         public List<ActiveUsersWithRole> ActiveUsers { get; set; } = new List<ActiveUsersWithRole>();
 
-        // Parametry
         public string SearchQuery { get; set; } = string.Empty;
         public bool SortByRole { get; set; }
 
         public async Task OnGetAsync(string searchQuery, bool sortByRole)
         {
+            //Jeœli nie ma roli to przekieruj na stronê logowania
+            if (UserRole != "administrator")
+            {
+                Response.Redirect("/Login");
+                return;
+            }
+
             // Przypisanie wartoœci z zapytania do w³aœciwoœci
             SearchQuery = searchQuery;
             SortByRole = sortByRole;
