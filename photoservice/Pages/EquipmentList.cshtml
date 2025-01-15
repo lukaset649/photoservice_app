@@ -6,6 +6,11 @@
 
 <h2>Lista sprzętu</h2>
 
+<!-- Przycisk do usuwania wszystkich sprzętów -->
+<form method="post" asp-page-handler="DeleteAll" onsubmit="return confirm('Czy na pewno chcesz usunąć wszystkie sprzęty?');">
+    <button type="submit" class="btn btn-danger mb-3">Usuń wszystkie sprzęty</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>
@@ -15,7 +20,8 @@
             <th>Producent</th>
             <th>Opis</th>
             <th>Stan</th>
-            <th>Dostępność</th>
+            <th>Wydajność</th>
+            <th>Akcje</th>
         </tr>
     </thead>
     <tbody>
@@ -29,6 +35,11 @@
                 <td>@equipment.Description</td>
                 <td>@equipment.Condition</td>
                 <td>@equipment.Working</td>
+                <td>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@equipment.IdEq" onsubmit="return confirm('Czy na pewno chcesz usunąć ten sprzęt?');">
+                        <button type="submit" class="btn btn-danger">Usuń</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using photoservice.Data;
 using photoservice.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace photoservice.Pages
@@ -14,22 +15,69 @@ namespace photoservice.Pages
 
         public List<Equipment> Equipments { get; set; } = new List<Equipment>();
 
-        // Konstruktor, który przyjmuje kontekst bazy danych
         public EquipmentListModel(PhotoserviceContext context)
         {
             _context = context;
         }
 
-        // Funkcja obs³uguj¹ca wyœwietlanie strony
+        // Funkcja wywo³ywana przy ¿¹daniu GET
         public async Task<IActionResult> OnGetAsync()
         {
-            // Pobieranie wszystkich sprzêtów z bazy danych wraz z powi¹zanymi danymi typu i producenta
             Equipments = await _context.Equipment
-                .Include(e => e.EqType)           // Pobranie typu sprzêtu
-                .Include(e => e.EqManufacturer)   // Pobranie producenta sprzêtu
+                .Include(e => e.EqType)           // Pobranie powi¹zanego typu sprzêtu
+                .Include(e => e.EqManufacturer)   // Pobranie powi¹zanego producenta sprzêtu
                 .ToListAsync();
 
             return Page();
+        }
+
+        // Funkcja wywo³ywana przy ¿¹daniu POST do usuniêcia sprzêtu
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
+        {
+            var equipment = await _context.Equipment
+                .Include(e => e.EquipmentCompabilityEqs)  // Wczytanie powi¹zanych rekordów z equipment_compability
+                .Include(e => e.EquipmentCompabilityCompatibleWiths)  // Wczytanie powi¹zanych rekordów z equipment_compability
+                .FirstOrDefaultAsync(e => e.IdEq == id);
+
+            if (equipment == null)
+            {
+                return NotFound();
+            }
+
+            // Usuwanie powi¹zanych rekordów z tabeli equipment_compability
+            _context.EquipmentCompabilities.RemoveRange(equipment.EquipmentCompabilityEqs);
+            _context.EquipmentCompabilities.RemoveRange(equipment.EquipmentCompabilityCompatibleWiths);
+
+            // Usuwanie sprzêtu z bazy danych
+            _context.Equipment.Remove(equipment);
+            await _context.SaveChangesAsync();
+
+            // Po usuniêciu, przekierowanie do listy sprzêtu
+            return RedirectToPage();
+        }
+
+        // Funkcja do usuwania wszystkich sprzêtów
+        public async Task<IActionResult> OnPostDeleteAllAsync()
+        {
+            // Pobranie wszystkich sprzêtów wraz z powi¹zanymi rekordami
+            var allEquipments = await _context.Equipment
+                .Include(e => e.EquipmentCompabilityEqs)  // Wczytanie powi¹zanych rekordów
+                .Include(e => e.EquipmentCompabilityCompatibleWiths)  // Wczytanie powi¹zanych rekordów
+                .ToListAsync();
+
+            // Usuwanie powi¹zanych rekordów dla wszystkich sprzêtów
+            foreach (var equipment in allEquipments)
+            {
+                _context.EquipmentCompabilities.RemoveRange(equipment.EquipmentCompabilityEqs);
+                _context.EquipmentCompabilities.RemoveRange(equipment.EquipmentCompabilityCompatibleWiths);
+            }
+
+            // Usuwanie wszystkich sprzêtów
+            _context.Equipment.RemoveRange(allEquipments);
+            await _context.SaveChangesAsync();
+
+            // Po usuniêciu, przekierowanie do listy sprzêtu
+            return RedirectToPage();
         }
     }
 }
